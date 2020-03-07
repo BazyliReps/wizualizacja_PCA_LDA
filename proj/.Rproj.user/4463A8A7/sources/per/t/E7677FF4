@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583609895754.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2288792604",
+    "id" : "E7677FF4",
+    "lastKnownWriteTime" : 1583614598,
+    "last_content_update" : 1583614598636,
+    "path" : "~/1szkola/wizualizacja/proj/analiza_PCA.R",
+    "project_path" : "analiza_PCA.R",
+    "properties" : {
+        "cursorPosition" : "31,67",
+        "scrollLine" : "6",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
