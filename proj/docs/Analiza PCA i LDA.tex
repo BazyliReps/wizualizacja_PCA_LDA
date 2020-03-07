@@ -1,0 +1,65 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\selectlanguage{polish}
+\usepackage[]{hyperref}
+\usepackage{pdfpages}
+\usepackage{float}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\lstset{
+  language=bash,
+  basicstyle=\ttfamily,
+  showstringspaces=false
+}
+
+
+\begin{document}
+
+
+\title{Porównanie wizualizacji PCA i LDA}
+\author{Aliaksandr Karolik, Łukasz Knigawka, Bazyli Reps}
+\maketitle
+
+
+\newpage
+
+\section{Opis problemu}
+Celem niniejszej pracy jest porównianie kompresji wymiarów danych za pomocą metod PCA oraz LDA. 
+\\
+Zamierzamy przedstawić przede wszystkim analizę redukcji wymiarowości dla obu metod, a następnie porównać je pod względem czasu wykonania redukcji a także uzyskanego stopnia kompresji. 
+\\
+Skrypty potrzebne do wykonania analiz napisane zostały w języku R.
+
+\section{Opis danych}
+Analizy przeprowadzone zostały na danych pobranych ze strony UCI Machine Learning Repository:
+\url{http://archive.ics.uci.edu/ml/datasets/SPECTF+Heart}
+\\
+Przedstawiają one badania wyniki badań serca dla poszczególnych ROI (Region Of Interest) w zależności od stanu badanej osoby (w spoczynku lub podczs wysiłku).
+\\
+Dane zawierają 44 kolumny zawierające dane dla 22 ROI w obu stanach oraz jedną kolumnę opisującą która przyjmuje dwie wartości: 'normal' oraz 'abnormal'. Zestaw zawiera 265 rekordów.
+
+\newpage
+\section{Analiza PCA}
+Dane zostały zredukowane do dwóch wymiarów. Na początku zostały wyznaczone wartości własne. 
+\begin{figure}[H]
+\includegraphics[scale=0.5]{wartosci_wlasne.pdf}
+\caption{Istnieje dziesięć wartości własnych większych od 1. Pozostałe można swobodnie usunąć.}
+\end{figure}
+
+Następnie zbadana została wariancja wyjaśniona w zależności od ilości wziętych składników wiodących.
+\begin{figure}[H]
+\includegraphics[scale=0.5]{wariancja_kum.pdf}
+\caption{Największe dwa składniki wiodące wyjaśniają około 45\% wariancji danych}
+\end{figure}
+
+W dalszej kolejności zwizualizowane zostały dane po redukcji do dwóch wymiarów. Na wykresie zaznaczone zostały klasy obiektów.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{klasy.pdf}
+\caption{Wyraźnie widoczne jest zgrupowanie rekordów z diagnozowanych jako 'abnormal'. Niestety charakter danych, a co za tym idzie mniejsza od 60\% wyjaśniona wariancja powodują, że pomimo redukcji obie klasy nie są wyraźnie od siebie odseparowane.}
+\end{figure}
+
+\end{document}
