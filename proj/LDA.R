@@ -19,14 +19,17 @@ lnr <- lda(OVERALL_DIAGNOSIS~., train)
 # lnr$prior
 # lnr$counts
 
+class = train$OVERALL_DIAGNOSIS
 pred <- predict(lnr, train)
-ldahist(data = pred$x[,1], g = train$OVERALL_DIAGNOSIS)
+ldahist(data = pred$x[,1], class)
 dev.off()
 
-g = train$OVERALL_DIAGNOSIS
-data = pred$x[,1]
+# g = train$OVERALL_DIAGNOSIS
+# data = pred$x[,1]
 
-library(devtools)
-# install_github("fawda123/ggord")
-library(ggord)
-ggord(lnr, train$OVERALL_DIAGNOSIS)
+library(ggplot2)
+
+LD1 = pred$x
+df = data.frame(LD1, class = as.factor(class))
+ggplot(data = df)+geom_density(aes(LD1, fill = class), alpha = 0.1)
+
