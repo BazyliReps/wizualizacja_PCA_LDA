@@ -17,7 +17,7 @@ test[,2:45] = scale(test[,2:45])
 
 lnr <- lda(OVERALL_DIAGNOSIS~., train)
 lnr
-  # histogramy funkcji dyskryminacji dla poszczególnych klas
+# histogramy funkcji dyskryminacji dla poszczególnych klas
 class = train$OVERALL_DIAGNOSIS
 pred <- predict(lnr, train)
 LD1 = pred$x
@@ -40,6 +40,5 @@ p.test <- predict(lnr, test)$class
 table_test <- table(predicted = p.test, Actual = test$OVERALL_DIAGNOSIS)
 table_test
 sum(diag(table_test)/sum(table_test))
-
 
 
