@@ -51,3 +51,4 @@ fviz_pca_ind(heart.pr, geom.ind = "point", pointshape = 21,
   ggtitle("Dane z zaznaczonymi klasami") +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
+

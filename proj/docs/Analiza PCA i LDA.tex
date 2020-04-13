@@ -20,9 +20,9 @@
 
 
 \title{Porównanie wizualizacji PCA i LDA}
-\author{Aliaksandr Karolik, Łukasz Knigawka, Bazyli Reps}
+\author{Bazyli Reps, Łukasz Knigawka}
 \maketitle
-
+\tableofcontents
 
 \newpage
 
@@ -39,7 +39,8 @@ Analizy przeprowadzone zostały na danych pobranych ze strony UCI Machine Learni
 \\
 Przedstawiają one badania wyniki badań serca dla poszczególnych ROI (Region Of Interest) w zależności od stanu badanej osoby (w spoczynku lub podczs wysiłku).
 \\
-Dane zawierają 44 kolumny zawierające dane dla 22 ROI w obu stanach oraz jedną kolumnę opisującą która przyjmuje dwie wartości: 'normal' oraz 'abnormal'. Zestaw zawiera 265 rekordów.
+Dane zawierają 44 kolumny zawierające dane dla 22 ROI w obu stanach oraz jedną kolumnę opisującą która przyjmuje dwie wartości: 'normal' oraz 'abnormal'. Zestaw zawiera 265 rekordów,
+spośród których 55 obserwacji posiada etykietę 'abnormal', a 210 'normal'. 
 
 \newpage
 \section{Analiza PCA}
@@ -61,5 +62,45 @@ W dalszej kolejności zwizualizowane zostały dane po redukcji do dwóch wymiar�
 \includegraphics[scale=0.5]{klasy.pdf}
 \caption{Wyraźnie widoczne jest zgrupowanie rekordów z diagnozowanych jako 'abnormal'. Niestety charakter danych, a co za tym idzie mniejsza od 60\% wyjaśniona wariancja powodują, że pomimo redukcji obie klasy nie są wyraźnie od siebie odseparowane.}
 \end{figure}
+
+\newpage
+\section{Analiza LDA}
+Dyskryminację liniową można wykorzystać w zadaniu redukcji wymiarowości, przy jej pomocy można zredukować liczbę wymiarów do N-1, gdzie N to liczba klas. W naszym przypadku liczba klas wynosi 2, stąd liczbę wymiarów można zmniejszyć do zaledwie jednego. LDA można także użyć jako klasyfikatora.
+\\Aby przeprowadzić dyskryminację liniową dane zostały podzielone na zbiór treningowy oraz testowy (w klasycznych proporcjach odpowiednio 75\% oraz 25\% obserwacji). Dane zostały przeskalowane. Po nauczeniu klasyfikatora zbadaliśmy funkcje dyskryminacji dla poszczególnych klas.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{ldahist.pdf}
+\caption{Histogramy funkcji dyskryminacji dla poszczególnych klas}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{density.pdf}
+\caption{Funkcje gęstości wektora zmiennych dyskryminujących dla obu klas przedstawione na jednym wykresie. Widzimy, że klasy nie są jednoznacznie separowalne.}
+\end{figure}
+
+Po zbudowaniu klasyfikatora przeszliśmy do jego oceny. Na bazie obserwacji niewykorzystanych do budowy klasyfikatora zbadaliśmy zgodność klasyfikatora z rzeczywistymi danymi. 
+
+\begin{lstlisting}[caption={Macierz pomyłek dla danych treningowych}]
+          Actual
+predicted  abnormal normal
+  abnormal       18      3
+  normal         24    158
+\end{lstlisting}
+Dla danych treningowych osiągnięto precyzję 0.8669951.
+
+\begin{lstlisting}[caption={Macierz pomyłek dla danych testowych}]
+          Actual
+predicted  abnormal normal
+  abnormal        5      3
+  normal          8     46
+\end{lstlisting}
+Dla danych testowych osiągnięto precyzję 0.8225806.
+
+\section{Podsumowanie}
+\begin{itemize}
+    \item Oba algorytmy skutecznie redukują liczbę zmiennych opisujących zjawisko.
+    \item Metoda LDA wymaga mniejszej liczby składowych głównych niż PCA.
+    \item W przeciwieństwie do metody PCA, w przypadku LDA stosuje się wstępny podział danych ze względu na przynależność do klasy.
+\end{itemize}
 
 \end{document}
