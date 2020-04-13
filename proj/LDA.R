@@ -1,7 +1,9 @@
+library(MASS)
+library(ggplot2)
+library(neuralnet)
+# install.packages("neuralnet")
+
 heart <- read.csv("heart.csv")
-# head(heart, 1)
-# str(heart)
-# summary(heart)
 
 # podział zbioru na treningowy i testowy
 set.seed(123)
@@ -13,23 +15,31 @@ test <- heart[sampled == 2,]
 train[,2:45] = scale(train[,2:45])
 test[,2:45] = scale(test[,2:45])
 
-library(MASS)
 lnr <- lda(OVERALL_DIAGNOSIS~., train)
-
-# lnr$prior
-# lnr$counts
-
+lnr
+  # histogramy funkcji dyskryminacji dla poszczególnych klas
 class = train$OVERALL_DIAGNOSIS
 pred <- predict(lnr, train)
-ldahist(data = pred$x[,1], class)
+LD1 = pred$x
+ldahist(data = LD1, class)
 dev.off()
 
-# g = train$OVERALL_DIAGNOSIS
-# data = pred$x[,1]
-
-library(ggplot2)
-
-LD1 = pred$x
+# funkcje gęstości wektora zmiennych dyskryminujących dla obu klas na jednym wykresie
 df = data.frame(LD1, class = as.factor(class))
 ggplot(data = df)+geom_density(aes(LD1, fill = class), alpha = 0.1)
+dev.off()
+
+# macierz pomyłek dla danych treningowych
+p.train <- predict(lnr, train)$class
+table_train <- table(predicted = p.train, Actual = train$OVERALL_DIAGNOSIS)
+table_train
+sum(diag(table_train)/sum(table_train))
+
+# macierz pomyłek dla danych testowych
+p.test <- predict(lnr, test)$class
+table_test <- table(predicted = p.test, Actual = test$OVERALL_DIAGNOSIS)
+table_test
+sum(diag(table_test)/sum(table_test))
+
+
 
