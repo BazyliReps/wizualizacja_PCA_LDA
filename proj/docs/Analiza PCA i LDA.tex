@@ -62,6 +62,7 @@ W dalszej kolejności zwizualizowane zostały dane po redukcji do dwóch wymiar�
 \includegraphics[scale=0.5]{klasy.pdf}
 \caption{Wyraźnie widoczne jest zgrupowanie rekordów z diagnozowanych jako 'abnormal'. Niestety charakter danych, a co za tym idzie mniejsza od 60\% wyjaśniona wariancja powodują, że pomimo redukcji obie klasy nie są wyraźnie od siebie odseparowane.}
 \end{figure}
+Wywołanie funkcji \textit{prcomp()} trwało 1.170636 sekundy.
 
 \newpage
 \section{Analiza LDA}
@@ -95,6 +96,8 @@ predicted  abnormal normal
   normal          8     46
 \end{lstlisting}
 Dla danych testowych osiągnięto precyzję 0.8225806.
+\\
+Wywołanie funkcji \textit{lda()} z biblioteki \textit{MASS} trwało 1.57568 sekundy.
 
 \section{Podsumowanie}
 \begin{itemize}

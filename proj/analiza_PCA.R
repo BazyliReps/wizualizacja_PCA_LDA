@@ -4,7 +4,10 @@
 
 heart <- read.csv("heart.csv")
 
+start_time <- Sys.time()
 heart.pr <- prcomp(heart[c(2:length(colnames(heart)))], center = TRUE, scale = TRUE)
+end_time <- Sys.time()
+end_time - start_time
 
 # wyznaczenie wariancji zawartej w dwóch największych składnikach wiodących
 pc1_var <- as.double(summary(heart.pr)$importance[,1][2])

@@ -15,7 +15,12 @@ test <- heart[sampled == 2,]
 train[,2:45] = scale(train[,2:45])
 test[,2:45] = scale(test[,2:45])
 
+
+start_time <- Sys.time()
 lnr <- lda(OVERALL_DIAGNOSIS~., train)
+end_time <- Sys.time()
+end_time - start_time
+
 lnr
 # histogramy funkcji dyskryminacji dla poszczególnych klas
 class = train$OVERALL_DIAGNOSIS
